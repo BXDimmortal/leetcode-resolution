@@ -1,0 +1,27 @@
+/---------------------我的原始解法----------------------------------------/
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        if(t1&&t2) t1->val+=t2->val;    /判断条件/
+        if(t1&&!t2) return t1;
+        if(!t1&&t2){ t1 = t2; return t1;}/当第一棵树的子树为空时，把第二棵树嫁接到第一棵树上/
+        if(!t1&&!t2) {return nullptr;}
+        t1->left = mergeTrees(t1->left,t2->left);/----递归-------/
+        t1->right = mergeTrees(t1->right,t2->right);
+        return t1;
+        
+    }
+};
+/----------------------别人提交的优化答案-----------------------------------------/
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        if(!t1) return t2;  /----------此处比原来答案处更优-----------/
+        if(!t2) return t1; /-----两子树有一棵为空时，直接返回非空子树就好了-----------/
+        t1->val += t2->val;
+        
+        t1->left = mergeTrees(t1->left,t2->left);
+        t1->right = mergeTrees(t1->right,t2->right);
+        return t1;
+    }
+}
