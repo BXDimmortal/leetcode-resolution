@@ -1,7 +1,7 @@
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
-        int n = nums.size();
+    int maxSubArray(vector<int>& nums) {/---------------保留一个sum变量用来记忆之前的字串-------------------
+        int n = nums.size();            /----------------发现sum变负的时候马上丢弃,变为0-------------/
         int ans=nums[0],sum=0,i =0;
         for(;i<n;++i){
             sum+=nums[i];
