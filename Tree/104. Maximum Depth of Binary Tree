@@ -1,0 +1,11 @@
+
+/-------------------------------递归（深度优先搜索算法）------------/
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+		if(root == NULL)
+			return 0;
+		return max(maxDepth(root->left) + 1 ,maxDepth(root->right) + 1);
+    }
+};
+2.可以用一个队列进行层次遍历，进行广度优先搜索算法
