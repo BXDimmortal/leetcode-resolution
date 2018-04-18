@@ -1,0 +1,28 @@
+class Solution {                              //----------利用一个count变量来记录majority数字出现的次数，当下一个数字与
+public:                                       //----------当前最大数字不同时，就减一，当count 变量为零时，就换下一个数字
+    int majorityElement(vector<int>& nums) {
+        int count =1;
+        int maj = nums[0];
+        for(int i =1;i<nums.size();++i){
+            if(maj == nums[i]){
+                ++count;
+            }else if(count == 0){
+                maj = nums[i];
+            }else{
+                --count;
+            }   
+        }
+        return maj;
+    }
+};
+class Solution {                            //------------第二种方法，利用一个hash表来对数组中的数出现的次数进行存储
+public:                                     //------------如果发现出现的次数大于n/2那么我们就找到了majority number
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int,int> count;
+        int n = nums.size();
+        for(int i = 0;i<n;++i){
+            if(++count[nums[i]]>n/2)
+                return nums[i];
+        }
+    }
+};
