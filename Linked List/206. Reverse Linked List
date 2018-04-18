@@ -1,0 +1,26 @@
+class Solution {                                      //--------------反转链表，可以设置一个标志点，一个接一个的把所有点转移到这个链上
+public:
+    ListNode* reverseList(ListNode* head) {
+            if(!head) return nullptr;
+            ListNode* last= new ListNode(0);
+            ListNode* tail = head;
+        while(tail){
+            ListNode* cur = tail;
+            tail = tail->next;
+            cur->next = last;
+            last = cur;
+        }
+        head->next = nullptr;
+        return last;
+    }
+};
+class Solution {                                     //-------------利用递归的方法，返回的node节点是head子链表已经反转好的根节点
+public:                                              //-------------所以head->next得到的是它的末尾节点，因而head->next->next=head
+    ListNode* reverseList(ListNode* head) {          //-------------就是在他们之间连了一根线，再讲head->next置空就可以完成了
+        if(!head||!head->next) return head;
+        ListNode* node = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return node;
+    }
+};
