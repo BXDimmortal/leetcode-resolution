@@ -1,0 +1,43 @@
+class Solution {                             /------------这个方法是用栈来进行迭代，用一个全局变量sum来记录之前的和
+public:                                      /------------每次都要找到最右端通路，然后入栈出栈
+    TreeNode* convertBST(TreeNode* root) {
+        TreeNode* oldroot= root;
+        int sum = 0;
+        stack<TreeNode*> s;
+        if(!root) return nullptr;
+        s.push(root);
+        while(root->right){
+            s.push(root->right);
+            root=root->right;
+        }
+        while(!s.empty()){
+            TreeNode* cur = s.top();
+            cur->val+=sum;
+            sum = cur->val;
+            s.pop();
+            if(cur->left){
+                cur=cur->left;
+                while(cur){
+                    s.push(cur);
+                    cur=cur->right;
+                }
+            }
+
+        }
+        return oldroot;
+        
+    }
+
+};
+class Solution {                       /--------------使用递归的方法，还是得用一个全局变量来记录和sum-------------------.
+public:
+    int sum = 0;
+    TreeNode* convertBST(TreeNode* root) {
+            if(!root) return nullptr;
+            root-> right = convertBST(root->right);
+            root->val+=sum;
+            sum = root->val;
+            root-> left = convertBST(root->left);
+            return root;
+    }
+};
