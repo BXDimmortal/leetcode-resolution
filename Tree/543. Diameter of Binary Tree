@@ -1,0 +1,17 @@
+class Solution {                                //------这道题是求树的直径，所谓的直径与树的深度联系很大
+public:                                         //------用一个全局变量dia来保留树的的直径，通过不断递归地用它和
+    int dia =0;                                 //-----树的左子树深度与右子树深度之和做比较，从而更新变量这样最终就可以得到答案
+    int diameterOfBinaryTree(TreeNode* root) {
+            int k = maxdep(root);
+            return dia;
+    }
+    int maxdep(TreeNode* root){
+        if(!root) return 0;
+        int left = maxdep(root->left);
+        int right = maxdep(root->right);
+        dia = max(dia,left+right);
+        return max(left,right)+1;
+        
+    }
+    
+};
