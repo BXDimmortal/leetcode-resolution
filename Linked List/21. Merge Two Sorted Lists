@@ -1,0 +1,22 @@
+class Solution {                                           //迭代算法----本方法采用的方式和反转链表相似，都是新建一个首领点，然后通过两个指针                 
+public:                                                    //--分别在两个链表上移动，并且比较大小，最后剩下的部分并入总链表
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* p = new ListNode(1);
+        ListNode* q =p;
+        if(!l1 && l2) return l2;
+        if(!l2 && l1) return l1;
+        if(!l1 && !l2) return nullptr;
+        while(l1&&l2){
+            p->next = (l1->val>l2->val)?l2:l1;
+            p = p->next;
+            if(l1->val>l2->val){
+                l2 =l2->next;
+            }else{
+                l1 =l1->next;
+            }
+        }
+        if(!l1) p->next = l2;
+        if(!l2) p->next= l1;
+        return q->next;
+    }
+};
