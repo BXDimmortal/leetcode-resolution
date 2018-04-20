@@ -1,0 +1,16 @@
+class Solution {                                 //--------注意题目的要求，它是判断一个树是否对称，也就是说，这个树的左子树和右
+public:                                          //--------子树是否镜面对称，我的想法是从根节点分裂出两个子树，判断他们是否对称之后相等
+    bool isSymmetric(TreeNode* root) {          //---------以下是递归版本版本              迭代版本是用一个栈来模拟递归，与之相似
+        if(!root) return true;
+        if((!(root->left))&&(!(root->right) ))  return true;
+       if ((!root->left && root->right) || (root->left && !root->right)) return false;
+        return equal(root->left,root->right);
+        return isSymmetric(root->left)&&isSymmetric(root->right)&&(root->left->val==root->right->val);
+                   // ((!root->left && root->right) || (root->left && !root->right))
+    }
+    bool equal(TreeNode* l,TreeNode* r){
+        if(!l && !r) return true;
+        if((!l && r) ||(!r && l)) return false;
+        return (l->val == r->val) && equal(l->left,r->right) && equal(l->right,r->left) ;
+    }
+};
