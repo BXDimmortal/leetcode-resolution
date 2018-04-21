@@ -1,0 +1,15 @@
+class Solution {                                               //本题是计算最大字串，用一个变量max_sum来保存最大值，用sum_sofa来保留
+public:                                                        //之前的和，通过用零和sum_sofa来去除小于0的子串
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int max_sum = nums[0];
+        int sum_sofa = nums[0];
+        for(int i =1;i<n;++i){
+            sum_sofa = max(0,sum_sofa);
+            if(sum_sofa+nums[i]>max_sum) max_sum = sum_sofa+nums[i];
+            sum_sofa +=nums[i];
+             
+        }
+        return max_sum;
+    }
+};
