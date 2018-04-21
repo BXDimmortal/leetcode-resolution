@@ -1,0 +1,12 @@
+class Solution {              //本题的题意是求树的路径和，关键是把问题分解成以跟节点开始的路径的个数再加上两个子树的路径数目的和
+public:                       // 从而采用递归的方法实现。
+    int pathSum(TreeNode* root, int sum) {
+        if(!root) return 0;
+        return root_sum(root,0,sum) +pathSum(root->left,sum)+pathSum(root->right,sum);
+    }
+    int  root_sum(TreeNode* root,int pre_sum, int sum){
+            if(!root) return 0;
+            int cur = root->val+pre_sum;
+        return (cur == sum) + root_sum(root->left,cur,sum)+root_sum(root->right,cur,sum);
+    }
+};
