@@ -1,0 +1,33 @@
+class Solution {                                         //-----第一种方法，用一个数字来标识走过的点，当再次遇到标志的时候就说明有环存在，否则无环
+public:
+        bool hasCycle(ListNode *head) 
+        {
+            if (!head || !head->next ) return false;
+            head->val = -111111;
+            head = head->next;
+            while((head &&head->val != -111111) &&  head){
+                if(head&&head->val == -111111) {return true;}
+                if(head) {head->val=-111111;head= head->next;}
+            }
+            if(!head){return false;}
+            else{return true;}
+ 
+        }
+};
+class Solution {                                        //-----利用快慢指针，一个快，一个慢，当没有环的时候他们一定会相遇
+public:
+        bool hasCycle(ListNode *head) 
+        {
+            ListNode* fast = head;
+            while(head){
+                head = head->next;
+                if(fast->next &&fast->next->next){
+                    fast = fast->next->next;
+                    if(fast == head ) return true;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+       }
+};
