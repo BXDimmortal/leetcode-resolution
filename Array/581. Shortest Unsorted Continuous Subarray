@@ -1,0 +1,29 @@
+class Solution {                                     
+public:
+  int findUnsortedSubarray(vector<int>& nums) {           
+        int shortest = 0;                                //保留一个最短长度
+        
+        int left = 0, right = nums.size() - 1;           //求出从左右两端可以伸出的最大长度
+        while (left < nums.size() - 1 && nums[left] <= nums[left + 1]) { left++; }
+        while (right > 0 && nums[right] >= nums[right - 1]) { right--; };
+        
+        if (right > left) {                             //如果伸出部分没有交叉，那么分别找出中间区域的最小值和最大值
+            int vmin = INT_MAX, vmax = INT_MIN;
+            for (int i = left; i <= right; ++i) {
+                if (nums[i] > vmax) {
+                    vmax = nums[i];
+                }
+                if (nums[i] < vmin) {
+                    vmin = nums[i];
+                }
+            }
+            
+            while (left >= 0 && nums[left] > vmin) { left--; }; // 将伸出部分多余的部分减掉
+            while (right < nums.size() && nums[right] < vmax) { right++; };
+            
+            shortest = right - left - 1;  // 最短的部分就是左右指针的差
+        }
+        
+        return shortest;
+    }
+};
