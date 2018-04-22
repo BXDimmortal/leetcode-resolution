@@ -1,0 +1,15 @@
+class Solution {                             //--------------寻找两个相交链表相交的位置，其实就是分别先后遍历两个链表，从数学上可以证明
+public:                                      //--------------当有交点存在时，两个指针必定相遇在交点。
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* a = headA;
+        ListNode* b = headB;
+        if(!a) return nullptr;
+        if(!b) return nullptr;
+        while(a!=b){
+            a= a?a->next:headB;
+            b =b?b->next:headA;
+        }
+        return a;
+        
+    }
+};
