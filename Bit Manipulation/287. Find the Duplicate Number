@@ -1,0 +1,13 @@
+class Solution {                             //找到重复的数字。我采用的是哈希表，将数字放入哈希表中，再进行查找
+public:
+    int findDuplicate(vector<int>& nums) {
+        unordered_set<int> iset;
+        iset.insert(nums[0]);
+        int n = nums.size();
+        for(int i = 1;i<n+1;++i){
+            auto iter_end = iset.end();
+            if(iter_end != iset.find(nums[i]) ) return nums[i];
+            iset.insert(nums[i]);
+        }
+    }
+};
