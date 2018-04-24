@@ -1,0 +1,10 @@
+class Solution {                      //这道题想法很奇妙
+public:                               //首先利用n&n-1可以去掉n的最底位的1，那么它的1的总个数当然比n的1的总个数少一，有这个递推公式就很容易算出来了
+    vector<int> countBits(int num) {
+        vector<int> ivec(num+1,0);
+        for(int i = 1 ;i<num+1;++i){
+            ivec[i] = ivec[i&(i-1)] +1;
+        }
+        return ivec;
+    }
+};
