@@ -1,0 +1,32 @@
+class Solution {                                                //---本题是验证链表是否为回文链表
+public:                                                         //---思路是构造快慢指针，当他们同时向前运动的时候，快指针到达尾部的时候，
+    bool isPalindrome(ListNode* head) {                         //---慢指针到达链表中部，然后反转链表，开始比对
+        if(!head || !head->next) return true;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast&&fast->next){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        if(fast != nullptr){
+            slow = slow->next;
+        }
+        fast = head;
+        slow = reverse(slow);
+        while(slow != nullptr){
+            if(slow->val != fast->val){
+                return false;
+            }
+            slow = slow->next;
+            fast = fast->next;
+        }
+        return true;
+    }
+    ListNode* reverse(ListNode* rev){
+        if(!rev || !rev->next) return rev;
+        ListNode* node = reverse(rev->next);
+        rev->next->next= rev;
+        rev->next= nullptr;
+        return node;
+    }
+};
