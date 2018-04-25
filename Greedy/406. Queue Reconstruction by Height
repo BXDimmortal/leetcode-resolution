@@ -1,0 +1,13 @@
+class Solution {                          //本题思路是先对各人身高进行排序（降序排列），然后从前往后重建整个队列，按照pair的second大小
+public:                                   //将后边的元素插到前面去
+   vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+        sort(people.begin(),people.end(),[](pair<int,int> p1,pair<int,int> p2){
+            return p1.first>p2.first || (p1.first == p2. first && p1.second<p2.second);
+        });
+       vector<pair<int,int>> res;
+       for(auto per:people){
+           res.insert(res.begin()+per.second,per);
+       }
+       return res;
+   }
+};
