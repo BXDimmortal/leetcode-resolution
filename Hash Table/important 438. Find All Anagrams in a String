@@ -1,0 +1,25 @@
+class Solution {                                              //本题目是字符串匹配，只需要字符数量相同即可    利用滑动窗口算法
+public:                                                       //利用一个hash表将所有字符存起来，记录她们在子串中出现的次数
+    vector<int> findAnagrams(string s, string p) {            //在大串中设置左右指针，用一个变量count是否等于0来表示是否匹配
+        vector<int> res;                                      //注意count的加减与字符以及左右指针的移动不是同步进行的  
+        vector<int> hash(256,0);
+        for(char c:p){
+            ++hash[c];
+        }
+        int left =0,right =0,count = p.size();
+        while(right<s.size()){
+            if(hash[s[right]]>0){
+                count--;
+            }
+            hash[s[right]]--;
+            right++;
+            if(count == 0) res.push_back(left);
+            if((right-left) == p.size() ){
+                if(hash[s[left]]>=0)    count++;
+                hash[s[left]]++;
+                left++;   
+            }         
+        }
+        return res;
+    }
+};
