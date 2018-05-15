@@ -1,0 +1,16 @@
+class Solution {                                                //本题是求字符串的回文子串，利用动态规划考虑i到j的子串和i+1到j-1子串的关系，
+public:                                                         //若要i到j为回文串，则必有s-i 和 s-j相等，以及子串为回文串。。
+    int countSubstrings(string s) {                             //注意我下面的这种编程方式有问题，每次都是取一列上的数，而不是一行上的数
+         int n = s.size();                                      //破坏了程序的局部性原理，不可取，应该从字符串从后往前，开始计算
+        vector<int> mid(n,0);
+        vector<vector<int>> dp(n,mid);
+        int res=0;
+        for(int j=0;j<n;++j){
+            for(int i=0;i<=j;++i){
+                dp[i][j] = (s[i] == s[j]) && ((j-i<3)||dp[i+1][j-1] == 1);
+                if(dp[i][j])  res++;
+            }
+        }
+       return res;
+    }
+};
