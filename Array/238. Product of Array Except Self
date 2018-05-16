@@ -1,0 +1,16 @@
+class Solution {                                            //这道题是求除了自己以外其他所有数字的乘积，我自己的想法是先把所有的数字乘一遍，然后
+public:                                                     //做商，但是这样的问题就是得考虑除零，要进行分类，很麻烦
+    vector<int> productExceptSelf(vector<int>& nums) {      //下面的做法是参考别人的做法，它的思路是两个for循环，第一次，res的每一项，是左边所
+        vector<int> res(nums.size(),0);                     //有数字的成绩，然后再从右边再做乘积，得到最终的结果。
+         res[0] =1;
+        for(int i =1;i<nums.size();++i){
+            res[i]= res[i-1]*nums[i-1];
+        }
+        int right=1;
+        for(int i =nums.size()-1;i>=0;--i){
+            res[i] *=right;
+            right *=nums[i];
+        }
+        return res;
+    }
+};
