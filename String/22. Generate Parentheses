@@ -1,0 +1,15 @@
+class Solution {                                         //本题是产生所有可能的括号组合，这是第一种方法，利用递归方法做的。
+public:                                                  //用变量n记录还需要添加的左括号，m用来记录当前需要添加的括号，
+    vector<string> generateParenthesis(int n) {          //然后进行递归，递归基就是n==0==m的时候
+        vector<string> res;                              //思路非常巧妙！！！
+        add_integer(res,"",n,0);
+        return res;
+    }
+    void add_integer(vector<string> &res,string s,int n,int m){
+        if(n == 0 && m == 0){
+             res.push_back(s);
+        }
+        if(m>0) add_integer(res,s+")",n,m-1);
+        if(n>0) add_integer(res,s+"(",n-1,m+1);
+    }
+};
