@@ -1,0 +1,21 @@
+class Solution {                                             //本题目是找出数组里出现频率前k个数字，思路是先把所有数字放到hash表里面，
+public:                                                      //再将hash表排序，找出前k个
+     vector<int> topKFrequent(vector<int>& nums, int k) {    //其实，第二步可以用一个最大堆，用来保存hash表中前k个数字，这样的效果是可以节约内存空
+        vector<int> res;                                     //间，例如k=50000,n =10000000000,用最大堆的效果就会很好
+        unordered_map<int,int> mapp;
+        for(int i:nums){
+            mapp[i]++;
+        }
+         vector<pair<int,int>> cur;
+        for(auto a = mapp.begin();a!=mapp.end();++a){
+            cur.push_back(*a);
+        }
+        sort(cur.begin(),cur.end(),
+             [](const pair<int,int> &a,const pair<int,int> &b) ->bool 
+            {return a.second>b.second;});
+         for(int i =0;i<k;++i){
+             res.push_back(cur[i].first);
+         }
+        return res;
+    }
+};
