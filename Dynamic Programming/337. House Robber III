@@ -1,0 +1,23 @@
+class Solution {                                     //这道题是小偷偷东西的二叉树版本
+public:                                              //下面是我的做法，有点啰嗦，其实就是取一个节点与它的所有孙子节点和与它所有儿子节点和的较大值
+    int rob(TreeNode* root) {
+        if(!root) return 0;
+        int sum = 0;
+        if(root->left){
+            if(root->right){
+                return max(root->val+rob(root->left->left)+rob(root->left->right)+rob(root->right->left)+rob(root->right->right),rob(root->left)+rob(root->right));
+            }else{
+                return max(root->val+rob(root->left->left)+rob(root->left->right),rob(root->left)+rob(root->right));
+            }
+        }else{
+            if(root->right){
+                return max(root->val+rob(root->right->left)+rob(root->right->right),rob(root->left)+rob(root->right));
+            }else{
+                return max(root->val,rob(root->left)+rob(root->right));
+            }
+        }
+        
+        
+    }
+
+};
