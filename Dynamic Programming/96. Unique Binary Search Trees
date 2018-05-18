@@ -1,0 +1,25 @@
+class Solution {                                    //本题是求所有二叉搜索树的可能组合数
+public:                                             //利用动态规划，n层树可以拆分成更小树的组合
+int numTrees(int n) {                               //答案里有更简洁的方法
+	if (n == 0) return 0;
+	vector<int> t(n + 1, 1);
+	vector<vector<int>> dp(n + 1, t);
+	for (int i = 1; i<n+1; ++i) {
+		for (int j = 1; j<n+1; ++j) {
+			if (j>i) dp[i][j] = 0;
+			else if (i == 1 && j == 1) 
+				dp[i][j] = 1;
+			else if (i>j) 
+				dp[i][j] = dp[j][j];
+			else {
+				int sum = 0;
+				for (int k = 0; k < i ; ++k) {
+					sum += dp[i - 1][k] * dp[i - 1][j - 1 - k];
+				}
+				dp[i][j] = sum;
+			}
+		}
+	}
+	return dp[n][n];
+    }
+};
