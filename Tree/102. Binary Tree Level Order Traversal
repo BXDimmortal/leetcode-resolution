@@ -1,0 +1,22 @@
+class Solution {                                           //本题目是二叉树层次遍历，利用一个队列
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        deque<TreeNode*> q;
+        if(!root) return res;
+        q.push_back(root);
+        while(!q.empty()){
+            vector<int> term;
+            int length = q.size();
+            for(int i =0;i<length;++i){
+                TreeNode* top = q.front();
+                term.push_back(top->val);
+                if(top->left) q.push_back(top->left);
+                if(top->right) q.push_back(top->right);
+                q.pop_front();
+            }
+            res.push_back(term);
+        }
+        return res;
+    }
+};
