@@ -1,0 +1,22 @@
+class Solution {                                                            //本题是求所有可能的组合，数字可以重复用，但是2，2，3和2，3，3
+public:                                                                     //是一样的
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        vector<int> term;
+        back_trace(res,term,candidates,target,0);
+        return res;
+    }
+    void back_trace(vector<vector<int>> &res,vector<int> term,vector<int> candidates,int target,int start){
+        int sum =0;      //此处是直接求和，开销太大，应该用一个变量remain来记录剩余的和
+        for(auto a:term){
+            sum+=a;
+        }
+        if(sum>target) {return;}
+        if(sum == target) {res.push_back(term);return;}
+        for(int i = start;i<candidates.size();++i){
+            term.push_back(candidates[i]);
+            back_trace(res,term,candidates,target,i);//此处是关键用i更新start,那样的话，就不会重复了，因为它只可能用当前的项或者之后的项
+            term.pop_back();
+        }
+    }
+};      
