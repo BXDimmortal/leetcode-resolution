@@ -1,0 +1,19 @@
+class Solution {                                           //本题是买卖股票，很有意思
+public:                                                    //关键是注意其中的状态buy,sell,cool,以及他们之间相互转移的关系，也就是其中的状态
+    int maxProfit(vector<int>& prices) {                   //转移方程，最后比较sell和cool的大小即可，最后一次是buy的话，肯定最小，不用管
+        if(prices.empty()) return 0;
+        int n = prices.size();
+        vector<int> buy(n,0);
+        vector<int> sell(n,0);
+        vector<int> cool(n,0);
+        buy[0] = -prices[0];
+        cool[0] = 0;
+        sell[0] = -1;
+        for(int i  = 1 ; i < n; ++i ){
+            buy[i] = max(cool[i-1]-prices[i],buy[i-1]);
+            sell[i] = buy[i-1]+prices[i];
+            cool[i] = max(cool[i-1],sell[i-1]);
+        }
+        return max(cool[n-1],sell[n-1]);
+    }
+};
