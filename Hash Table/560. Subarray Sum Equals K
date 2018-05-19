@@ -1,0 +1,18 @@
+class Solution {                                              //本题是求所有和为k的子串个数
+public:                                                       //先预处理求得前面的子串和，放到hash表里面，再在hash表里查找，利用的关系
+    int subarraySum(vector<int>& nums, int k) {               //是s[0,j]-s[0,i-1]=s[i,j];
+         unordered_map<int,int> presum;
+        int sum = 0;
+        int res = 0;
+        presum[0] =1;
+        for(auto num:nums){
+            sum+=num;
+            if(presum.find(sum -k)!=presum.end()){
+                res+=presum[sum-k];
+            }
+            presum[sum]++;
+        }
+        return res;
+    }
+
+};
