@@ -1,0 +1,20 @@
+class Solution {                                            //本题目是添加加减号凑数字，先把题目转换成等价形式，再进行计算
+public:                                                     //利用动态规划
+    int findTargetSumWays(vector<int>& nums, int s) {
+        int sum = 0;
+        for(auto num:nums){
+            sum+=num;
+        }
+        return (s>sum || (s+sum)%2)?0:subset(nums,(s+sum)/2);
+    }
+    int subset(vector<int> & nums,int sum){
+        vector<int> dp(sum+1,0);
+        dp[0] = 1;
+        for(auto num:nums){ //对于每个num，将其添加到子集中
+            for(int j = sum;j>=num;--j){
+                dp[j]+=dp[j-num];//状态转移方程，注意它是从高到低，因为，产生j-num的和的数依赖于之前计算出来的数
+            }
+        }
+        return dp[sum];
+    }
+};
