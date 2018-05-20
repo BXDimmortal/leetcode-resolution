@@ -1,0 +1,38 @@
+class Solution {                                          //本题是将所有字符解码，主要就是构造两个栈，分别存储数字和字符串，res用来保存左括号之左，右括号
+public:                                                   //之右的字符串
+    string decodeString(string s) {                       //遇到‘]’，弹出，进行操作即可
+        stack<int> repeat;
+        stack<string> restack;
+        string res;
+        int n = s.size();
+        int i = 0;
+        while(i<n){
+            if(isdigit(s[i])){
+                int count = 0;
+                while(isdigit(s[i])){
+                    count=count*10 + s[i]-'0';
+                    ++i;
+                }
+                repeat.push(count);
+            }else if(s[i] == '['){
+                restack.push(res);
+                res = "";
+                ++i;
+            }else if(s[i] == ']'){
+                int ctimes = repeat.top();
+                string temp = restack.top();
+                restack.pop();
+                repeat.pop();
+                for(int k = 0 ;k<ctimes;++k){
+                    temp+=res;
+                }
+                res = temp;
+                ++i;
+            }else{
+                res+=s[i];
+                ++i;
+            }
+        }
+        return res;
+    }
+};      
