@@ -1,0 +1,14 @@
+class Solution {                                              //本题目是求调度的最短时间，先构造一个frame，也就是把出现频率最高的任务安排好
+public:                                                       //再将其他任务插入进去。有frame比tasks小的情况，注意。
+    int leastInterval(vector<char>& tasks, int n) {
+        unordered_map<char,int> charcount;
+        int count = 0;
+        for(auto c:tasks){
+            charcount[c]++;
+            count = max(count,charcount[c]);
+        }
+        int ans = (n+1)*(count-1);
+        for(auto c:charcount){if(c.second == count) ans++;}
+        return max(ans,(int)tasks.size());
+    }
+};
