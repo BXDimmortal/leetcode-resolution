@@ -1,0 +1,17 @@
+class Solution {                                        //本题目相当于旋转一个二维矩阵
+public:                                                 //题目里要求原地旋转
+    void rotate(vector<vector<int>>& matrix) {          //我的想法是旋转矩阵最外面一层，然后递归得一次旋转里面的小矩阵，主要就是注意坐标的变换
+        realrotate(matrix,0);
+    }
+    void rotatefour(int &a,int &b,int &c,int &d){
+        swap(a,b);swap(a,c);swap(c,d);
+    }
+    void realrotate(vector<vector<int>>& matrix,int n){
+        int len = matrix.size();
+        if( 2*n>=len-1) return;
+        for(int i = 0 ; i<len-1-2*n ; ++i){
+            rotatefour(matrix[n][n+i],matrix[n+i][len-1-n],matrix[len-1-i-n][n],matrix[len-1-n][len-1-n-i]);
+        }
+        realrotate(matrix,n+1);
+    }
+};
