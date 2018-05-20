@@ -1,0 +1,7 @@
+class Solution {                                                //这道题是求第K大的元素
+public:                                                         //最简单的想法就是用这个，先全部排序，再直接找
+    int findKthLargest(vector<int>& nums, int k) {              //还可以利用一个堆来进行
+        sort(nums.begin(),nums.end());                          //还可以利用快排的思想来进行
+        return nums[nums.size()-k];
+    }
+};
