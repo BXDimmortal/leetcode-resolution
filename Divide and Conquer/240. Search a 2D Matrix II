@@ -1,0 +1,18 @@
+class Solution {                                                        //从右下角出发是行不通的，从右上角出发，每次向左或向下移动
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if (matrix.empty()) return false;
+        int m = 0;
+        int n = matrix[0].size()-1;
+        while(m<matrix.size() && n>=0){
+            if(matrix[m][n] > target) {
+                --n;
+            }else if(matrix[m][n]<target){
+                ++m;
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+};
