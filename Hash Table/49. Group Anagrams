@@ -1,0 +1,24 @@
+class Solution {                                            //本题目是将所含字母相同的字符串放在一起
+public:                                                     //首先想到的自然是先排序，构造排序后和之前的pair，之后挨个添加到res里面，但是这样的方法
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {   //比较笨重
+        vector<int> prime = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103};
+        unordered_map<int,int> m;                           //以下是比较巧妙地方法，用质数来表示字母，字母的组合看作质数的乘积，乘积相同说明
+        vector<vector<string>> res;                         //所含字母数相同
+        for(auto s:strs){                                   //之后构造一个，乘积->res索引的hash表，然后挨个添加进去就好了
+            int key = 1;
+            for(auto c:s){
+                key*=prime[c-'a'];
+            }
+            if( m.find(key)!=m.end()){
+                auto it = m.find(key); 
+                res[(*it).second].push_back(s);
+            }else{
+                vector<string> term;
+                term.push_back(s);
+                res.push_back(term);
+                m[key] = res.size()-1;
+            }
+        }
+        return res;
+    }
+};
