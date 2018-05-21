@@ -1,0 +1,14 @@
+class Solution {                                        //  本题是将0，1，2分别放在一起，利用双指针以及冒泡的思想，交换即可
+public:                                                 //  注意，像这种交换元素的问题得想到用双指针来做
+    void sortColors(vector<int>& nums) {
+        int left = 0 ,right = nums.size()-1;
+        for(int i = 0; i < nums.size() ; ++i ){
+            while(nums[i] == 2 && i < right) {
+                swap(nums[i],nums[right]);right--;
+            }
+            while(nums[i] == 0 && i > left){
+                swap(nums[i],nums[left]);left++;
+            }
+        }
+    }
+};
