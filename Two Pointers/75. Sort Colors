@@ -1,6 +1,6 @@
 class Solution {                                        //  本题是将0，1，2分别放在一起，利用双指针以及冒泡的思想，交换即可
 public:                                                 //  注意，像这种交换元素的问题得想到用双指针来做
-    void sortColors(vector<int>& nums) {
+    void sortColors(vector<int>& nums) {                //  当然也可以第一遍统计各数字个数，第二遍直接放进去，但是不符合题意
         int left = 0 ,right = nums.size()-1;
         for(int i = 0; i < nums.size() ; ++i ){
             while(nums[i] == 2 && i < right) {
