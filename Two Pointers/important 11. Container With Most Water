@@ -1,0 +1,19 @@
+class Solution {                                       //本题目是求最大的容积，从两头出发，此时的容器最宽，故而向里面收缩时
+public:                                                //只考虑比它高的线。高的线会被短的线拖累，因而必须使两头都要更高
+    int maxArea(vector<int>& height) {
+        int len = height.size();
+        int i = 0,j = len-1;
+        int max_area = 0;
+        while(i<j){
+            int h = min(height[i],height[j]);
+            max_area= max((j-i)*h,max_area);
+            while(height[i]<=h){
+                ++i;
+            }
+            while(height[j]<=h){
+                --j;
+            }
+        }
+        return max_area;
+    }
+};
