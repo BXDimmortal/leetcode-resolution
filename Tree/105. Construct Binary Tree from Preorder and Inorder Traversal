@@ -1,0 +1,24 @@
+class Solution {                                                         //用先序遍历数组里的根节点，将中序遍历数组分成两部分，然后就可以
+public:                                                                  //递归的构造出来二叉树
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if(preorder.empty() || inorder.empty()) return nullptr;
+        int rootPos = 0;
+        return helper(preorder,inorder,0,inorder.size()-1,rootPos);  
+    }
+    TreeNode* helper(vector<int> &preorder,vector<int> &inorder,int left,int right,int &root_pos){
+        if(left > right) return nullptr;
+        if(left == right) {
+            root_pos++;
+            return new TreeNode(inorder[left]);
+        }
+        int mid =left;
+        while(preorder[root_pos]!= inorder[mid] && mid<=right){
+            mid++;
+        }
+        TreeNode* root = new TreeNode(preorder[root_pos]);
+        root_pos++;
+        root->left = helper(preorder,inorder,left,mid-1,root_pos);
+        root->right = helper(preorder,inorder,mid+1,right,root_pos);
+        return root;
+    }
+};
