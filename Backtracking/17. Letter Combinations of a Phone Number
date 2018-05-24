@@ -1,0 +1,23 @@
+class Solution {                                            //本题计算的是所有可能的组合，利用回溯算法非常的简单
+public:
+    vector<string> container = {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    vector<string> letterCombinations(string digits) {
+        vector<string> res;
+        if(digits.empty()) return res;
+        string term = "";
+        comb(res,digits,term,0);
+        return res;
+    }
+    void comb(vector<string> &re,string digits,string term,int start){
+        if(term.size() == digits.size()) {re.push_back(term);return;}
+        int len = digits.size();
+        for (int i = start ; i< len;++i){
+            int con = container[digits[i]-'2'].size();
+            for(int j = 0 ;j < con;++j){
+                term+=container[digits[i]-'2'][j];
+                comb(re,digits,term,i+1);
+                term.erase(term.size()-1,1);
+            }
+        }
+    }
+};
