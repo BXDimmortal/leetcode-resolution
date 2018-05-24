@@ -1,0 +1,39 @@
+class Solution {                                      //这是我写的第一种方法，利用递归。
+public:
+    void flatten(TreeNode* root) {
+        if(!root) return ;
+        if(root->left){
+            TreeNode* tail = get_tail(root->left);
+            tail->right=root->right;
+            root->right = root->left;
+            root->left = nullptr;     
+            flatten(root->right);
+        }else{
+            flatten(root->right);
+        }
+    }
+    TreeNode* get_tail(TreeNode* r){
+        while(true){
+            if(r->right) {r= r->right;}
+            else if(r->left){
+                r = r->left;
+            }else{
+                break;
+            }
+        }
+        return r;
+    }
+};
+
+class Solution {                                              //下面是我的第二种方法，核心是从右到左的后序遍历。
+public:
+    TreeNode* prev = nullptr;
+    void flatten(TreeNode* root) {
+        if(!root) return ;
+        flatten(root->right);
+        flatten(root->left);
+        root->right = prev;
+        root->left = nullptr;
+        prev = root;
+    }
+};
