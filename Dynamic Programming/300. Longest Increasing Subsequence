@@ -1,0 +1,21 @@
+class Solution {                                                    //本题目是求最长上升子序列，有两种动态规划的方法，复杂度不同
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size(),len = 0;
+        vector<int> tail(n,0);
+        for(auto num:nums){
+            int i = 0 ,j = len;
+            while(i!=j){
+                int mid = (i+j)/2;
+                if(tail[mid]<num){
+                    i = mid+1;
+                }else{
+                    j = mid;
+                }
+            }
+            tail[j] = num;
+            if(i == len) ++len;
+        }
+        return len;
+    }
+};
