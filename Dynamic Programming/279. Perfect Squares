@@ -1,0 +1,13 @@
+class Solution {                                            //本题目是求最少的完全平方数的组合
+public:
+    int numSquares(int n) {
+        vector<int> res(n+1,INT_MAX);
+        res[0] = 0;
+        for(int i = 1; i < n+1;++i){
+            for(int j  = 1;j*j<i+1;++j){
+                res[i] = min(res[i-j*j]+1,res[i]);//关键是这个状态转移方程
+            }
+        }
+        return res[n];
+    }
+};
