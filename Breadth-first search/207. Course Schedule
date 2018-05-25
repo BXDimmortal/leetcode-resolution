@@ -1,0 +1,67 @@
+class Solution {                                                             //本题其实就是拓扑排序，下面是第一种做法，广度优先搜索
+public:                                                                      //首先是构造一个装有hash集合的向量，每个集合里面的点都会被索引
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {  //点提供入度。然后构造一个索引点对应的入度，也就是计算各个课程的
+        vector<unordered_set<int>> graph = make_graph(numCourses,prerequisites); //入度，然后就是循环找入度为0的点，挨个摘除，并将它的下级的
+        vector<int>  degrees = compute_degrees(numCourses,graph);             //入度减少，找不到入度为0的点的时候说明有环存在，无法拓扑排序
+        for(int i = 0 ;i < numCourses;++i){
+            int j = 0;
+            for(;j<numCourses;++j){
+                if(degrees[j] == 0) break;
+            }
+            if(j == numCourses) return false;
+            for(auto c:graph[j]){
+                degrees[c]--;
+            }
+            degrees[j] = -1;
+        }
+        return true;
+    }
+    vector<unordered_set<int>> make_graph(int num,vector<pair<int,int>> prerequ){//利用给的pair 构造图
+        vector<unordered_set<int>> graph(num);
+        for(auto pre:prerequ){
+                graph[pre.second].insert(pre.first);
+        }
+        return graph;
+    }
+    vector<int>   compute_degrees(int num,vector<unordered_set<int>> graph){//计算入度
+        vector<int> degree(num,0);
+        for(auto pre:graph){
+            for(auto next:pre){
+                degree[next]++;
+            }
+        }
+        return degree;
+    }
+};
+---------------------------------------------------------------------------------------------------------------------------
+class Solution {                      //这种方法是深度优先搜索，超时了，应该是因为搜索了太多次。
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<unordered_set<int>> graph = make_graph(numCourses,prerequisites);
+        vector<bool> visited (numCourses,false),onvisit(numCourses,false);
+        for (int i = 0 ; i < numCourses;++i){
+            if(!visited[i] && dfs_cycle(graph,i,visited,onvisit) ){
+                return false;
+            }
+        }
+        return true;
+    }
+    vector<unordered_set<int>> make_graph(int num,vector<pair<int,int>> prerequ){
+        vector<unordered_set<int>> graph(num);
+        for(auto pre:prerequ){
+                graph[pre.second].insert(pre.first);
+        }
+        return graph;
+    }
+    bool dfs_cycle(vector<unordered_set<int>> graph,int node,vector<bool> &visited,vector<bool> &onvisit){
+        if(onvisit[node]) return true;
+        onvisit[node] = true;
+        visited[node] = true;
+        for(auto neighbor:graph[node]){
+            if(dfs_cycle(graph,neighbor,visited,onvisit))
+                return true;
+        }
+        return onvisit[node] = false;
+    }
+
+};
