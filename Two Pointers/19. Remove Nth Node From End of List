@@ -1,0 +1,17 @@
+class Solution {                                            //本题目是求链表的倒数第n个元素
+public:                                                     //利用双指针，预处理这个链表，也就是让右指针先跑n个单位，再两个指针一起跑之后
+    ListNode* removeNthFromEnd(ListNode* head, int n) {     //再删除元素即可
+        ListNode* left = head;
+        ListNode* right = head;
+        for(int i = 0 ; i< n;++i){
+            right = right->next;
+        }
+        while(right && right->next){
+            left = left ->next;
+            right = right -> next;
+        }
+        if(!right) return left->next;
+        left->next = left->next->next;
+        return head;
+    }
+};
