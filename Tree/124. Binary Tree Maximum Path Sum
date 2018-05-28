@@ -1,0 +1,15 @@
+class Solution {                               //这道题给了我深刻的教训，写代码一定要注意不能把变量以及符号写错。
+public:                                        //左右子树的和分别与0比较，用maxsum保存最大和，max_path保留当前树的最大和
+    int maxPathSum(TreeNode* root) {
+        int maxsum = INT_MIN;
+        max_path(root,maxsum);
+        return maxsum;
+    }
+    int max_path(TreeNode* root,int& maxsum){
+        if(!root) return 0;
+        int left_sum = max(0,max_path(root->left,maxsum));
+        int right_sum = max(0,max_path(root->right,maxsum));
+        maxsum = max(left_sum+right_sum+root->val,maxsum);
+        return max(left_sum,right_sum)+root->val;
+    }
+};
