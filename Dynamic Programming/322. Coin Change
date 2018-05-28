@@ -1,0 +1,25 @@
+class Solution {                                   //本题是换零钱，很简单
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> dp(amount+1,-1);
+        dp[0] = 0;
+        int type = coins.size();
+        for(int i = 1;i<amount+1;++i){
+            for(auto coin:coins){   
+                if(coin>i) {continue;}
+                else{
+                    if(dp[i-coin] == -1){
+                        continue;
+                    }else{
+                        if(dp[i] == -1){
+                            dp[i] = dp[i-coin]+1;
+                        }else{
+                            dp[i] = min(dp[i],dp[i-coin]+1);
+                        }
+                    }
+                }
+           }
+        }
+        return dp[amount];
+    }
+};
