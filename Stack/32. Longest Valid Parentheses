@@ -1,0 +1,26 @@
+class Solution {                                              //本题目是求最长有效括号，用栈来存储括号的索引，遇到匹配的括号对就弹出，最终得到的
+public:                                                       //栈中保存着无法匹配的括号的索引，然后再依次计算他们的长度即可
+    int longestValidParentheses(string s) {
+        stack<int> store;
+        int count = 0;
+        int len = s.size();
+        for(int i = 0 ;i < len ;++i){
+            if(store.empty() || s[i] == '(' ){
+                store.push(i);
+            }else if(s[store.top()] == '(' && s[i] == ')' ){
+                store.pop();
+            }else{
+                store.push(i);
+            }
+        }
+        if(store.empty()) return s.size();
+        while(!store.empty()){
+            auto c = store.top();
+            store.pop();
+            count = max(count,len-c-1);
+            len = c;
+        }
+        count =max(count,len);
+        return count;
+    }
+};
