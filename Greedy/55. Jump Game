@@ -1,0 +1,33 @@
+class Solution {                               //下面是第一种方法，用一个数组记录是否可达，时间复杂度很高
+public:
+    bool canJump(vector<int>& nums) {
+        int n = nums.size();
+        if(n <= 1) return true;
+        vector<bool> dp(n,false);
+        dp[0] = true;
+        for(int i = 0; i<n;++i){
+            if(dp[i]){
+                for(int step = 1;step <=nums[i];++step){
+                    if(i+step < n ){
+                    dp[i+step] = true;
+                    }else{
+                    break;
+                    }
+                }
+            }
+        }
+        return dp[n-1];
+    }
+};
+
+class Solution {                            //下面是第二种方法，只用maxreach来记录最大可到达的位置，并不断更新。
+public:
+    bool canJump(vector<int>& nums) {
+        int maxreach = 0;
+        int len = nums.size();
+        for(int i =0;i<len && i<=maxreach && maxreach <len;++i){
+            maxreach = max(maxreach,nums[i]+i);
+        }
+        return maxreach>=(len-1);
+    }
+};
