@@ -1,0 +1,23 @@
+class Solution {                                            //低位加法，主要是考虑进位
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* ans = new ListNode(0);
+        auto old = ans;
+        int ret = 0;
+        while(l1 || l2 || ret==1){
+            int  p = 0;
+            if(l1) {p+=l1->val;l1 = l1->next;};
+            if(l2) {p+=l2->val;l2 = l2->next;};
+            if(ret == 1) p+=1;
+            if(p>9) {
+                p-=10;
+                ret = 1;
+            }else{
+                ret = 0;
+            }
+            ans->next = new ListNode(p);
+            ans = ans->next;
+        }
+        return old->next;
+    }
+};
