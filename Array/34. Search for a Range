@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {                    //循环两次分别找出左右边界，注意式子（lo+hi）/2 向左偏，构造
+        int lo = 0,hi = nums.size()-1;                                          //的式子 (lo+hi+1)/2 向右偏，记得合并条件
+        vector<int> res={-1,-1};
+        if(nums.empty()) return res;
+        while(lo < hi){
+            int mid = (lo+hi)/2;
+            if(nums[mid] < target){
+                lo = mid+1;
+            }else{
+                hi = mid;
+            }
+        }
+        if(nums[lo] != target) return res;
+        res[0] = lo;
+        hi = nums.size()-1 ;
+        while(lo < hi){
+            int mid = (lo+hi+1)/2;
+            if(nums[mid]>target){
+                hi = mid-1;
+            }else{
+                lo = mid;
+            }
+        }
+        res[1] = hi;
+        return res;
+    }
+};
