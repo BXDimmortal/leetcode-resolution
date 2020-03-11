@@ -11,6 +11,7 @@ public:                                     //--------------用两个变量分�
                 min = prices[i];
             }
         }
+        //git test added
         return res;
     }
 };
