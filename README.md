@@ -1,3 +1,4 @@
 # leetcode-resolution
-##my leetcode resolutions
+## my leetcode resolutions
+---
 <s>删除线<s>
